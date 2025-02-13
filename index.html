@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook-Like Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+    }
+    .header {
+      background-color: #1877f2;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .container {
+      width: 50%;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    input[type="text"], input[type="password"], input[type="email"], input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #165eab;
+    }
+    .login-signup-toggle {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .login-signup-toggle a {
+      color: #1877f2;
+      text-decoration: none;
+    }
+    .post-container {
+      margin: 20px auto;
+      width: 60%;
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    .post-container textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .post-container input[type="file"] {
+      margin-bottom: 10px;
+    }
+    .post-btn {
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .post-btn:hover {
+      background-color: #165eab;
+    }
+    .post {
+      background-color: #f4f4f4;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+    .post img {
+      width: 100%;
+      max-width: 100px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Welcome to Facebook</h1>
+  </div>
+
+  <div class="container" id="login-container">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="login-email">Email or Phone</label>
+      <input type="email" id="login-email" placeholder="Enter email or phone">
+    </div>
+    <div class="form-group">
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" placeholder="Enter password">
+    </div>
+    <button onclick="login()">Login</button>
+    <div class="login-signup-toggle">
+      <p>Don't have an account? <a href="javascript:toggleForms('signup')">Sign up</a></p>
+    </div>
+  </div>
+
+  <div class="container" id="signup-container" style="display:none;">
+    <h2>Sign Up</h2>
+    <div class="form-group">
+      <label for="signup-name">Full Name</label>
+      <input type="text" id="signup-name" placeholder="Enter full name">
+    </div>
+    <div class="form-group">
+      <label for="signup-email">Email</label>
+      <input type="email" id="signup-email" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="signup-password">Password</label>
+      <input type="password" id="signup-password" placeholder="Enter password">
+    </div>
+    <button onclick="signup()">Sign Up</button>
+    <div class="login-signup-toggle">
+      <p>Already have an account? <a href="javascript:toggleForms('login')">Log in</a></p>
+    </div>
+  </div>
+
+  <div class="post-container" style="display:none;" id="post-container">
+    <h2>Create a Post</h2>
+    <textarea id="post-text" rows="4" placeholder="What's on your mind?"></textarea>
+    <br>
+    <input type="file" id="post-photo" accept="image/*">
+    <br>
+    <button class="post-btn" onclick="createPost()">Post</button>
+  </div>
+
+  <div id="posts-section">
+    <div class="post">
+      <p><strong>User Name</strong> posted:</p>
+      <p>This is a sample post content.</p>
+      <img src="C:\Users\ASUS\Pictures\remy.jpg" alt="Sample Image">
+    </div>
+  </div>
+
+  <script>
+    function toggleForms(form) {
+      if (form === 'login') {
+        document.getElementById('login-container').style.display = 'block';
+        document.getElementById('signup-container').style.display = 'none';
+      } else {
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('signup-container').style.display = 'block';
+      }
+    }
+
+    function login() {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      if (email && password) {
+        alert('Login Successful!');
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('post-container').style.display = 'block';
+      } else {
+        alert('Please fill in all fields.');
+      }
+    }
+
+    function signup() {
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      if (name && email && password) {
+        alert('Sign up Successful!');
+        document.getElementById('signup-container').style.display = 'none';
+        document.getElementById('post-container').style.display = 'block';
+      } else {
+        alert('Please fill in all fields.');
+      }
+    }
+
+    function createPost() {
+      const text = document.getElementById('post-text').value;
+      const file = document.getElementById('post-photo').files[0];
+      const postsSection = document.getElementById('posts-section');
+      let postHTML = '<div class="post"><p><strong>Your Name</strong> posted:</p>';
+      postHTML += `<p>${text}</p>`;
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          postHTML += `<img src="${e.target.result}" alt="Post Image">`;
+          postsSection.innerHTML = postHTML + '</div>' + postsSection.innerHTML;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        postsSection.innerHTML = postHTML + '</div>' + postsSection.innerHTML;
+      }
+      document.getElementById('post-text').value = '';
+      document.getElementById('post-photo').value = '';
+    }
+  </script>
+
+</body>
+</html>
